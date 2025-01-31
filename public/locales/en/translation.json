@@ -1,0 +1,175 @@
+{
+    "docName": "Dr. Faisal Al-Saud",
+    "docDegree": "MBBS, General Surgeon",
+    "docDescription": "Dr. Faisal Al-Saud, with 10+ years of experience, specializes in minimally invasive surgery and complex procedures.",
+    "makeAppointment": "Make an Appointment",
+    "language": "Arabic",
+    "explore_more": "Explore more",
+    "navbar": {
+        "logo": "Portfolio",
+        "home": "Home",
+        "about": "About",
+        "case": "Case",
+        "work": "Work",
+        "happyPatient": "Happy Patient",
+        "logout": "Logout"
+    },
+    "about": {
+        "title": "About",
+        "mini_title": "Me",
+        "description": "With over a decade of experience in the medical field, Dr. Faisal Al-Saud is a skilled general surgeon known for his expertise in minimally invasive techniques and complex surgeries. He has a deep commitment to patient care and consistently strives to achieve the best outcomes through precision, advanced surgical methods, and compassionate care. His extensive background in both elective and emergency surgeries has earned him a reputation for excellence in the medical community.",
+        "experience": "Years Professional Experience",
+        "cases": "Cases Solve"
+    },
+    "cases": {
+        "show_btn": "My Cases",
+        "title": "Highlights of",
+        "title_with_primary": "Successful Treatments",
+        "para": "Explore some of the successful medical cases I have handled in renowned hospitals across Saudi Arabia.",
+        "case1": {
+            "title": "Minimally Invasive Heart Valve Replacement",
+            "desc": "A groundbreaking surgery in Riyadh involving minimally invasive techniques for heart valve replacement, performed at King Faisal Specialist Hospital."
+        },
+        "case2": {
+            "title": "Advanced Proton Therapy for Cancer",
+            "desc": "Successfully treated a complex cancer case using advanced proton therapy in Makkah at King Abdullah Medical City."
+        },
+        "case3": {
+            "title": "Life-Saving Heart Transplant",
+            "desc": "A life-saving heart transplant procedure performed with exceptional expertise in Al-Kharj at Prince Sultan Cardiac Center."
+        },
+        "case4": {
+            "title": "Rare Pediatric Neurosurgery",
+            "desc": "Handled a rare pediatric neurosurgery case, showcasing precision and expertise in Jeddah at National Guard Health Affairs."
+        },
+        "case5": {
+            "title": "High-Risk Orthopedic Surgery",
+            "desc": "Managed a high-risk orthopedic surgery, ensuring a quick recovery for the patient, performed at Dr. Soliman Fakeeh Hospital."
+        }
+    },
+    "experience": {
+        "show_btn": "Professional Background",
+        "title": "Where He",
+        "title_with_primary": "Worked Before",
+        "hospitals": "Hospitals",
+        "experience1": {
+            "title": "King Faisal Specialist Hospital and Research Center",
+            "experience": "Worked as a senior surgeon specializing in minimally invasive techniques and complex organ transplants, gaining extensive experience in life-saving procedures over a 5-year tenure."
+        },
+        "experience2": {
+            "title": "MOH-King Saud Medical City",
+            "experience": "Served as a lead trauma surgeon for over 4 years, managing high-pressure emergency cases and refining expertise in advanced surgical interventions."
+        },
+        "experience3": {
+            "title": "Dr. Soliman Fakeeh Hospital",
+            "experience": "Contributed as a consultant surgeon for 3 years, excelling in orthopedic and general surgeries with a strong focus on patient recovery and outcome optimization."
+        }
+    },
+    "reviews": {
+        "title": "Happy",
+        "title_with_primary": "Patients",
+        "review1": {
+            "para": "The surgical team at King Faisal Specialist Hospital provided exceptional care. The procedure was smooth, and the recovery process was faster than I had anticipated. I’m grateful for the professionalism and attention to detail.",
+            "name": "Ahmed Al-Farsi",
+            "role": "Engineer"
+        },
+        "review2": {
+            "para": "My experience at Dr. Soliman Fakeeh Hospital was outstanding. The doctors were highly skilled, and the hospital staff made me feel comfortable throughout my treatment. I’m glad I chose this hospital for my surgery.",
+            "name": "Sara Al-Shammari",
+            "role": "Medical Technician"
+        },
+        "review3": {
+            "para": "I had a complex medical issue and received treatment at MOH-King Saud Medical City. The doctors were incredibly knowledgeable, and the recovery process was smooth thanks to their guidance. I highly recommend this hospital.",
+            "name": "Faisal Al-Mutairi",
+            "role": "Teacher"
+        },
+        "review4": {
+            "para": "The level of care I received at Dr. Soliman Fakeeh Hospital was amazing. The surgeons and medical staff ensured I was well informed about every step of the process. My recovery was quick, and I couldn’t be more pleased with the results.",
+            "name": "Layla Al-Dosari",
+            "role": "Architect"
+        },
+        "review5": {
+            "para": "King Faisal Specialist Hospital treated me like family. From the moment I walked in, I felt that I was in the hands of experts. The team provided me with excellent care and support throughout the procedure and recovery.",
+            "name": "Mohammed Al-Jaber",
+            "role": "Software Developer"
+        }
+    },
+    "footer": {
+        "logo": "Logo",
+        "para": "This is Dr. Faisal Al-Saud's official website, dedicated to showcasing his expertise, medical services, and professional background.",
+        "copyright": "Copyright © 2025",
+        "discover": {
+            "title": "Discover",
+            "home": "Home",
+            "about": "About",
+            "case": "Case",
+            "work": "Work",
+            "happyPatient": "Happy Patient"
+        },
+        "social": {
+            "title": "Social",
+            "facebook": "Facebook",
+            "twitter": "X",
+            "youtube": "Youtube"
+        },
+        "contact": {
+            "title": "Contact",
+            "location": "Al-Balad District, Jeddah, 21442 Saudi Arabia"
+        }
+    },
+    "result": {
+        "title": "Witness The Difference and",
+        "title_with_primary": "Our Results.",
+        "para": "See the transformation! Check out the before and after images showcasing the remarkable improvements and enhancements"
+    },
+    "video_sec": {
+        "title": "Patient Centered",
+        "title_with_primary": "Reviews.",
+        "para": "Explore firsthand testimonials from our patients celebrating their life-changing outcomes after exceptional surgical care."
+    },
+    "login": {
+        "title": "Login as Admin",
+        "email": "Email",
+        "password": "Password",
+        "login": "Login",
+        "forgot": "Forgot Password?"
+    },
+    "edit_hero_about": "Edit Hero & About Section",
+    "about_hero": {
+        "title": "Edit About & Hero Section (Only English)",
+        "photo": "Change Photo",
+        "tap_to_edit": "Tap to edit",
+        "name": "Name",
+        "degree": "Degree",
+        "experience": "Years Professional Experience",
+        "cases": "Cases Solve",
+        "update_btn": "Update",
+        "hero_desc": "Hero Description",
+        "about_desc": "About Description"
+    },
+    "cases_edit": {
+        "title": "Add New Case (Only English)",
+        "case_title": "Case Title",
+        "description": "Description",
+        "button": "Add New Case"
+    },
+    "add_results": {
+        "title": "Add More Results",
+        "button": "Add Images",
+        "before": "Before",
+        "after": "After"
+    },
+    "add_videos": {
+        "title": "Add Videos",
+        "video": "Tap to Upload Video",
+        "upload": "Upload Video"
+    },
+    "add_reviews": {
+        "title": "Add Reviews (Only English)",
+        "role": "Role",
+        "description": "Description",
+        "button": "Add Reviews"
+    },
+    "note": "This is to edit only the English content. To edit the Arabic content, please switch the language.",
+    "no_reviews": "No, Reviews Found"
+}
