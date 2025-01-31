@@ -109,15 +109,17 @@ const Cases = ({ user }) => {
                         {cases.map((caseItem) => (
                             <SwiperSlide key={caseItem.key}>
                                 <div className='relative flex flex-col bg-white rounded-xl shadow-lg sm:h-[350px] overflow-hidden cursor-pointer'>
-                                    <div className='absolute right-5 top-3 size-10 rounded-xl bg-white grid place-items-center'>
-                                        <Trash2
-                                            className=' text-red-600 cursor-pointer'
-                                            onClick={() =>
-                                                handleDelete(caseItem.key)
-                                            }
-                                            size={23}
-                                        />
-                                    </div>
+                                    {user && (
+                                        <div className='absolute right-5 top-3 size-10 rounded-xl bg-white grid place-items-center'>
+                                            <Trash2
+                                                className=' text-red-600 cursor-pointer'
+                                                onClick={() =>
+                                                    handleDelete(caseItem.key)
+                                                }
+                                                size={23}
+                                            />
+                                        </div>
+                                    )}
                                     {/* Image Section */}
                                     <div className='h-1/2'>
                                         <img
