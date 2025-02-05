@@ -1,7 +1,4 @@
-import { useTranslation } from 'react-i18next'
-
 const HeroSec = ({ heroAboutData }) => {
-    const { t } = useTranslation()
     return (
         <section
             className='w-full h-[calc(100vh-3.5rem)] flex flex-col justify-center px-6 md:px-main_padding '

@@ -12,10 +12,9 @@ const About = ({ heroAboutData }) => {
             <div className='md:w-1/2 relative sm:flex sm:justify-center max-sm:mx-auto'>
                 <div className='relative max-sm:w-full'>
                     {/* White background rectangle */}
-                    <div className='bg-white rounded-3xl w-[200px] h-[300px] sm:w-[400px] sm:h-[500px] shadow-lg' />
 
                     {/* Doctor image */}
-                    <div className='absolute bottom-0 flex items-center justify-center'>
+                    <div className='bg-white rounded-3xl w-[200px] h-[300px] sm:w-[400px] sm:h-[500px] shadow-lg relative overflow-hidden'>
                         <img
                             src={
                                 heroAboutData.imageUrl ??
