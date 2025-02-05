@@ -47,7 +47,7 @@ const AddResult = ({ setEditAboutHero, getAllImage }) => {
             const casesCollectionRef = collection(db, 'results')
             await addDoc(casesCollectionRef, finalData)
             await getAllImage()
-            toast.success('Successfully added pictures')
+            toast.success(t('result_success_message'))
         } catch (error) {
             console.log(error)
             if (error instanceof Error) {
@@ -145,7 +145,11 @@ const AddResult = ({ setEditAboutHero, getAllImage }) => {
                         </span>
                     </div>
                 </div>
-                <Button type='submit' disabled={loading}>
+                <Button
+                    type='submit'
+                    disabled={loading || !imageFile.after || !imageFile.before}
+                    className='disabled:bg-gray-500'
+                >
                     {' '}
                     {loading ? (
                         <Loader

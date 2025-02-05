@@ -9,24 +9,26 @@ import Button from './ui/Button'
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
 import { db } from '../config/firebaseConfig'
 import { toast } from 'react-toastify'
+import AddInjury from './ui/AddInjury'
 
-const Cases = ({ user }) => {
+const EduSection = ({ user }) => {
     const {
         t,
         i18n: { language },
     } = useTranslation()
-    const [showAddCase, setShowAddCase] = useState(false)
-    const [cases, setCases] = useState([])
+    const [showAddInjury, setShowAddInjury] = useState(false)
+    const [isShowMore, setIsShowMore] = useState(null)
+    const [allInjuries, setAllInjuries] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const getAllCases = async () => {
+    const getAllInjuries = async () => {
         setLoading(true)
         try {
-            const languageDocRef = doc(db, language, 'cases')
+            const languageDocRef = doc(db, language, 'ed-section')
             const snapShot = await getDocs(
-                collection(languageDocRef, 'allCases')
+                collection(languageDocRef, 'injuries')
             )
-            setCases(
+            setAllInjuries(
                 snapShot.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
             )
         } catch (e) {
@@ -36,14 +38,20 @@ const Cases = ({ user }) => {
         }
     }
     useEffect(() => {
-        getAllCases()
+        getAllInjuries()
     }, [language])
     const handleDelete = async (caseId) => {
         try {
-            const caseDocRef = doc(db, language, 'cases', 'allCases', caseId)
-            await deleteDoc(caseDocRef)
-            setCases(cases.filter((item) => item.key !== caseId))
-            toast.success(t('delete_case_message'))
+            const injuryDocRef = doc(
+                db,
+                language,
+                'ed-section',
+                'injuries',
+                caseId
+            )
+            await deleteDoc(injuryDocRef)
+            setAllInjuries(allInjuries.filter((item) => item.key !== caseId))
+            toast.success(t('injury_delete_message'))
         } catch (error) {
             console.error('Error deleting case:', error)
             toast.error('Error deleting case')
@@ -53,26 +61,22 @@ const Cases = ({ user }) => {
         <>
             <section className='mt-10 mb-2 md:px-4 max-md:px-6' id='case'>
                 <h1 className='w-fit text-lg py-2 px-6 rounded-full bg-primary text-white mx-auto mb-3'>
-                    {t('cases.show_btn')}
+                    {t('edu_section.show_btn')}
                 </h1>
                 <h1 className='text-4xl font-medium text-center mb-5 leading-relaxed'>
-                    {t('cases.title')}{' '}
-                    <span className='text-primary'>
+                    {t('edu_section.title')}{' '}
+                    <span className='text-primary block'>
                         {' '}
-                        {t('cases.title_with_primary')}
+                        {t('edu_section.title_with_primary')}
                     </span>
                 </h1>
-                <p className='text-center text-base sm:w-[50%] mx-auto'>
-                    {' '}
-                    {t('cases.para')}
-                </p>
                 {user && (
-                    <div className='w-fit mx-auto'>
+                    <div className='w-fit mx-auto mb-4'>
                         <Button
                             className='px-4 mt-2'
-                            onClick={() => setShowAddCase(true)}
+                            onClick={() => setShowAddInjury(true)}
                         >
-                            {t('cases_edit.button')}
+                            {t('add_injuries.button')}
                         </Button>
                     </div>
                 )}
@@ -106,7 +110,7 @@ const Cases = ({ user }) => {
                         }}
                         className=' mt-8'
                     >
-                        {cases.map((caseItem) => (
+                        {allInjuries.map((caseItem) => (
                             <SwiperSlide key={caseItem.key}>
                                 <div className='relative flex flex-col bg-white rounded-xl shadow-lg sm:h-[350px] overflow-hidden cursor-pointer'>
                                     {user && (
@@ -132,11 +136,31 @@ const Cases = ({ user }) => {
                                     {/* Content Section */}
                                     <div className='h-1/2 flex flex-col justify-center px-6 py-2'>
                                         <h3 className='text-xl font-semibold text-blue-600'>
-                                            {caseItem.caseTitle}
+                                            {caseItem.injuryTitle}
                                         </h3>
-                                        <p className='text-gray-600 mt-2'>
-                                            {caseItem.description}
+
+                                        <p
+                                            className={`text-gray-600 mt-2 ${
+                                                isShowMore === caseItem.key
+                                                    ? 'overflow-y-auto'
+                                                    : 'text-ellipsis line-clamp-2'
+                                            } `}
+                                        >
+                                            {caseItem.description}{' '}
                                         </p>
+                                        <span
+                                            className='text-primary underline'
+                                            onClick={() =>
+                                                setIsShowMore((pre) => {
+                                                    if (pre) return null
+                                                    return caseItem.key
+                                                })
+                                            }
+                                        >
+                                            {isShowMore === caseItem.key
+                                                ? 'show less'
+                                                : 'show more'}
+                                        </span>
                                     </div>
                                 </div>
                             </SwiperSlide>
@@ -144,15 +168,15 @@ const Cases = ({ user }) => {
                     </Swiper>
                 )}
             </section>
-            {user && showAddCase && (
-                <AddCase
-                    setEditAboutHero={setShowAddCase}
+            {user && showAddInjury && (
+                <AddInjury
+                    setEditAboutHero={setShowAddInjury}
                     language={language}
-                    getAllCases={getAllCases}
+                    getAllInjuries={getAllInjuries}
                 />
             )}
         </>
     )
 }
 
-export default Cases
+export default EduSection

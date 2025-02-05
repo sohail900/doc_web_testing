@@ -43,6 +43,9 @@ const AddCase = ({ setEditAboutHero, language, getAllCases }) => {
         setLoading(true)
 
         try {
+            if (!imageFile || !formData.caseTitle || !formData.description) {
+                return toast.error('All fields are required.')
+            }
             let imageUrl = ''
 
             if (imageFile) {
@@ -58,7 +61,7 @@ const AddCase = ({ setEditAboutHero, language, getAllCases }) => {
             const languageDocRef = doc(db, language, 'cases')
             const casesCollectionRef = collection(languageDocRef, 'allCases')
             await addDoc(casesCollectionRef, finalData)
-            toast.success('Successfully update data')
+            toast.success(t('case_success_message'))
             setFormData('')
             setImagePreview(null)
             setImageFile(null)
@@ -151,7 +154,16 @@ const AddCase = ({ setEditAboutHero, language, getAllCases }) => {
                         />
                     </div>
 
-                    <Button disabled={loading}>
+                    <Button
+                        type='submit'
+                        disabled={
+                            loading ||
+                            !imageFile ||
+                            !formData.caseTitle ||
+                            !formData.description
+                        }
+                        className='disabled:bg-gray-500'
+                    >
                         {loading ? (
                             <Loader
                                 size={22}

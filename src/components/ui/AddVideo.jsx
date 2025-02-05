@@ -47,7 +47,7 @@ const AddVideo = ({ setEditAboutHero }) => {
             const videoUrl = await getDownloadURL(videoRef)
             const casesCollectionRef = collection(db, 'videos')
             await addDoc(casesCollectionRef, { videoUrl })
-            toast.success('Successfully added video')
+            toast.success(t('video_success_message'))
         } catch (error) {
             console.log(error)
             if (error instanceof Error) {
@@ -114,7 +114,11 @@ const AddVideo = ({ setEditAboutHero }) => {
                         </span>
                     </div>
                 </div>
-                <Button type='submit' disabled={loading}>
+                <Button
+                    type='submit'
+                    disabled={loading || !videoFile}
+                    className='disabled:bg-gray-500'
+                >
                     {loading ? (
                         <Loader
                             size={22}

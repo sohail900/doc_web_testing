@@ -170,6 +170,24 @@
         "description": "الوصف",
         "button": "إضافة تقييمات"
     },
+    "edu_section": {
+        "show_btn": "قسم التعليم",
+        "title": "تثقف حول بعض",
+        "title_with_primary": "الإصابات الشائعة"
+    },
+    "add_injuries": {
+        "title": "إضافة الإصابات (باللغة العربية فقط)",
+        "injuryTitle": "عنوان الإصابة",
+        "button": "أضف إصابة جديدة"
+    },
     "note": "هذا لتحرير المحتوى العربي فقط. لتحرير المحتوى الإنجليزي، يرجى تغيير اللغة.",
-    "no_reviews": "لا توجد مراجعات"
+    "no_reviews": "لا توجد مراجعات",
+    "about_success_message": "تم تحديث قسم المعلومات بنجاح",
+    "case_success_message": "تم إضافة الحالة الجديدة بنجاح",
+    "delete_case_message": "تم حذف الحالة بنجاح",
+    "result_success_message": "تم إضافة الصور بنجاح (قبل وبعد)",
+    "review_success_message": "تم إضافة التقييمات بنجاح",
+    "video_success_message": "تم إضافة الفيديو الجديد بنجاح",
+    "injury_success_message": "تم إضافة الإصابة الجديدة بنجاح",
+    "injury_delete_message": "تم حذف الإصابة بنجاح"
 }

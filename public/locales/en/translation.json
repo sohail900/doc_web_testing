@@ -151,7 +151,7 @@
         "title": "Add New Case (Only English)",
         "case_title": "Case Title",
         "description": "Description",
-        "button": "Add New Case"
+        "button": "Add a New Case"
     },
     "add_results": {
         "title": "Add More Results",
@@ -170,6 +170,24 @@
         "description": "Description",
         "button": "Add Reviews"
     },
+    "edu_section": {
+        "show_btn": "Education Section",
+        "title": "Educate yourself about some of",
+        "title_with_primary": "the common injuries "
+    },
+    "add_injuries": {
+        "title": "Add Injuries (Only English)",
+        "injuryTitle": "Injury Title",
+        "button": "Add a new injury"
+    },
     "note": "This is to edit only the English content. To edit the Arabic content, please switch the language.",
-    "no_reviews": "No, Reviews Found"
+    "no_reviews": "No, Reviews Found",
+    "about_success_message": "Successfully updated the about section",
+    "case_success_message": "New case added successfully",
+    "delete_case_message": "Case deleted successfully",
+    "result_success_message": "Successfully added images (before & after)",
+    "review_success_message": "Successfully added reviews",
+    "video_success_message": "Successfully added a new video",
+    "injury_success_message": "Successfully added a new injury",
+    "injury_delete_message": "Injury deleted successfully"
 }

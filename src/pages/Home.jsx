@@ -18,6 +18,7 @@ import Button from '../components/ui/Button'
 import { auth, db } from '../config/firebaseConfig'
 import Loading from './Loading'
 import { doc, getDoc } from 'firebase/firestore'
+import EduSection from '../components/EduSection'
 
 const Home = () => {
     const [editAboutHero, setEditAboutHero] = useState(false)
@@ -86,12 +87,13 @@ const Home = () => {
                     />
                 )}
                 <About heroAboutData={heroAboutData} />
-                <Cases user={user} />
                 <WorkBefore />
+                <Cases user={user} />
+                <EduSection user={user} />
                 <Result user={user} />
                 <VideoPlayer user={user} />
                 <Reviews user={user} />
-                <Banner />
+                <Banner heroAboutData={heroAboutData} />
                 <Footer />
             </main>
         </>

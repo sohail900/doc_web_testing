@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Camera, CircleX, Info, Loader } from 'lucide-react'
 import InputField from './InputField'
 import Button from './Button'
@@ -50,7 +50,20 @@ const UpdateAbout = ({ setEditAboutHero, heroAboutData, getHeroAboutData }) => {
             [name]: value,
         }))
     }
-
+    // Compare formData with original heroAboutData
+    const isFormUnchanged = useMemo(() => {
+        return (
+            JSON.stringify(formData) ===
+                JSON.stringify({
+                    name: heroAboutData.name,
+                    degree: heroAboutData.degree,
+                    heroDesc: heroAboutData.heroDesc,
+                    aboutDesc: heroAboutData.aboutDesc,
+                    experience: heroAboutData.experience,
+                    cases: heroAboutData.cases,
+                }) && imageFile === null
+        )
+    }, [formData, heroAboutData, imageFile])
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -81,7 +94,7 @@ const UpdateAbout = ({ setEditAboutHero, heroAboutData, getHeroAboutData }) => {
             } else {
                 await setDoc(docRef, finalData)
             }
-            toast.success('Successfully update data')
+            toast.success(t('about_success_message'))
             await getHeroAboutData()
         } catch (error) {
             console.error('Error uploading data:', error)
@@ -132,7 +145,6 @@ const UpdateAbout = ({ setEditAboutHero, heroAboutData, getHeroAboutData }) => {
                     </label>
                     <input
                         type='file'
-                        required
                         id='profile-image'
                         className='hidden'
                         accept='image/*'
@@ -226,7 +238,20 @@ const UpdateAbout = ({ setEditAboutHero, heroAboutData, getHeroAboutData }) => {
                         </div>
                     </div>
 
-                    <Button disabled={loading}>
+                    <Button
+                        type='submit'
+                        disabled={
+                            loading ||
+                            isFormUnchanged ||
+                            !formData.aboutDesc ||
+                            !formData.cases ||
+                            !formData.degree ||
+                            !formData.experience ||
+                            !formData.heroDesc ||
+                            !formData.name
+                        }
+                        className='disabled:bg-gray-500  '
+                    >
                         {loading ? (
                             <Loader
                                 size={22}

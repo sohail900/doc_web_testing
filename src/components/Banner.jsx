@@ -1,11 +1,5 @@
-import React from 'react'
-import { ArrowRight } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
-
-const Banner = () => {
-    // Create array of repeated text for background
-    const { t } = useTranslation()
-    const repeatedText = Array(20).fill(t('docName'))
+const Banner = ({ heroAboutData }) => {
+    const repeatedText = Array(20).fill(heroAboutData.name)
 
     return (
         <section className='relative min-h-[500px] bg-blue-50/40 backdrop-blur-3xl overflow-hidden flex items-center justify-center mt-10'>
