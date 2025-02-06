@@ -49,7 +49,10 @@ const Result = ({ user }) => {
                     <div className='w-fit mx-auto'>
                         <Button
                             className='px-4 mt-2'
-                            onClick={() => setShowResults(true)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setShowResults(true)
+                            }}
                         >
                             {t('add_results.button')}
                         </Button>
@@ -116,6 +119,7 @@ const Result = ({ user }) => {
                 <AddResult
                     setEditAboutHero={setShowResults}
                     getAllImage={getAllImage}
+                    editAboutHero={showResults}
                 />
             )}
         </>

@@ -7,11 +7,12 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { toast } from 'react-toastify'
 import { addDoc, collection } from 'firebase/firestore'
 
-const AddVideo = ({ setEditAboutHero }) => {
+const AddVideo = ({ setEditAboutHero, editAboutHero }) => {
     const [videoPreview, setVideoPreview] = useState(null)
     const [videoFile, setVideoFile] = useState(null)
     const [loading, setLoading] = useState(false)
     const { t } = useTranslation()
+    const updateAboutRef = useRef(null)
     const fileInputRef = useRef(null) // Ref to access the file input element
 
     const handleVideoChange = (e) => {
@@ -62,8 +63,29 @@ const AddVideo = ({ setEditAboutHero }) => {
         }
     }
 
+    const onClickEvent = (e) => {
+        if (
+            updateAboutRef.current &&
+            !updateAboutRef.current.contains(e.target)
+        ) {
+            setEditAboutHero(false) // Close when clicking outside
+        }
+    }
+
+    useEffect(() => {
+        if (editAboutHero) {
+            document.addEventListener('click', onClickEvent)
+        } else {
+            document.removeEventListener('click', onClickEvent)
+        }
+        return () => document.removeEventListener('click', onClickEvent)
+    }, [editAboutHero])
+
     return (
-        <div className='fixed top-0 ltr:right-0 rtl:left-0 w-full sm:w-[500px] h-full  py-3 px-5 bg-white  overflow-y-auto z-10'>
+        <div
+            className='fixed top-0 ltr:right-0 rtl:left-0 w-full sm:w-[500px] h-full  py-3 px-5 bg-white  overflow-y-auto z-10'
+            ref={updateAboutRef}
+        >
             <CircleX
                 className='text-black absolute top-5 ltr:right-5 rtl:left-5 cursor-pointer'
                 size={25}

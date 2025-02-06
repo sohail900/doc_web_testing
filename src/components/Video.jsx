@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Play, Pause, Loader } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import AddVideo from './ui/AddVideo'
@@ -60,7 +60,10 @@ const VideoPlayer = ({ user }) => {
                     <div className='w-fit mx-auto'>
                         <Button
                             className='px-4 mt-2'
-                            onClick={() => setShowAddVideo(true)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setShowAddVideo(true)
+                            }}
                         >
                             {t('add_videos.upload')}
                         </Button>
@@ -122,7 +125,10 @@ const VideoPlayer = ({ user }) => {
                 )}
             </section>
             {user && showAddVideo && (
-                <AddVideo setEditAboutHero={setShowAddVideo} />
+                <AddVideo
+                    setEditAboutHero={setShowAddVideo}
+                    editAboutHero={showAddVideo}
+                />
             )}
         </>
     )

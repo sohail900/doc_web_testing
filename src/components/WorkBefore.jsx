@@ -48,14 +48,16 @@ const WorkBefore = () => {
             </h1>
             {/* hopsitals */}
             <div className='flex justify-center max-sm:flex-col max-sm:gap-2 md:items-center mt-8 w-full md:w-[80%] lg:w-[60%] mx-auto'>
-                <div className='flex-1 bg-[#F1F5FF] py-4 px-4 rounded-2xl md:rounded-l-2xl'>
-                    <h1 className='text-xl font-medium mb-2'>
-                        {hospitalsData[contentSlider].name}
-                    </h1>
-                    <p className='text-base leading-relaxed'>
-                        {hospitalsData[contentSlider].experience}
-                    </p>
-                    <div className='mt-4 flex items-center gap-2 '>
+                <div className='flex-1 md:h-[340px] flex justify-between flex-col bg-[#F1F5FF] py-4 px-4 rounded-2xl  md:rounded-l-2xl relative'>
+                    <div>
+                        <h1 className='text-xl font-medium mb-2'>
+                            {hospitalsData[contentSlider].name}
+                        </h1>
+                        <p className='text-base leading-relaxed'>
+                            {hospitalsData[contentSlider].experience}
+                        </p>
+                    </div>
+                    <div className='mt-4 flex items-center gap-2 absolute bottom-24'>
                         <button
                             className='size-8 rounded-full grid place-items-center border border-primary text-primary disabled:border-gray-500 disabled:text-gray-500 rtl:order-2'
                             disabled={contentSlider === 0}

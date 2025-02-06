@@ -70,7 +70,10 @@ const Cases = ({ user }) => {
                     <div className='w-fit mx-auto'>
                         <Button
                             className='px-4 mt-2'
-                            onClick={() => setShowAddCase(true)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setShowAddCase(true)
+                            }}
                         >
                             {t('cases_edit.button')}
                         </Button>
@@ -147,6 +150,7 @@ const Cases = ({ user }) => {
             {user && showAddCase && (
                 <AddCase
                     setEditAboutHero={setShowAddCase}
+                    showAddCase={showAddCase}
                     language={language}
                     getAllCases={getAllCases}
                 />

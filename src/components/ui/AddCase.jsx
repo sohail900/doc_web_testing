@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Camera, CircleX, Info, Loader } from 'lucide-react'
 import InputField from './InputField'
 import Button from './Button'
@@ -8,10 +8,11 @@ import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 import { db, storage } from '../../config/firebaseConfig'
 
-const AddCase = ({ setEditAboutHero, language, getAllCases }) => {
+const AddCase = ({ setEditAboutHero, language, getAllCases, showAddCase }) => {
     const [imagePreview, setImagePreview] = useState(null)
     const [imageFile, setImageFile] = useState(null)
     const [loading, setLoading] = useState(false)
+    const caseRef = useRef(null)
     const [formData, setFormData] = useState({
         caseTitle: '',
         description: '',
@@ -74,8 +75,26 @@ const AddCase = ({ setEditAboutHero, language, getAllCases }) => {
         }
     }
 
+    const onClickEvent = (e) => {
+        if (caseRef.current && !caseRef.current.contains(e.target)) {
+            setEditAboutHero(false) // Close when clicking outside
+        }
+    }
+
+    useEffect(() => {
+        if (showAddCase) {
+            document.addEventListener('click', onClickEvent)
+        } else {
+            document.removeEventListener('click', onClickEvent)
+        }
+        return () => document.removeEventListener('click', onClickEvent)
+    }, [showAddCase])
+
     return (
-        <div className='fixed top-0 ltr:right-0 rtl:left-0 w-full sm:w-[500px] h-full py-3 px-5 bg-white overflow-y-auto z-10'>
+        <div
+            className='fixed top-0 ltr:right-0 rtl:left-0 w-full sm:w-[500px] h-full py-3 px-5 bg-white overflow-y-auto z-10'
+            ref={caseRef}
+        >
             <CircleX
                 className='text-black absolute top-5 ltr:right-5 rtl:left-5 cursor-pointer active:scale-90'
                 size={25}

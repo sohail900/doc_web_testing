@@ -50,7 +50,10 @@ const Reviews = ({ user }) => {
                     <div className='w-fit mx-auto'>
                         <Button
                             className='px-4 mt-2'
-                            onClick={() => setShowReviews(true)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setShowReviews(true)
+                            }}
                         >
                             {t('add_reviews.button')}
                         </Button>
@@ -101,6 +104,7 @@ const Reviews = ({ user }) => {
                 <AddReviews
                     setEditAboutHero={setShowReviews}
                     language={language}
+                    editAboutHero={showReviews}
                     getAllReviews={getAllReviews}
                 />
             )}

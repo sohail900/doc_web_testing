@@ -16,8 +16,9 @@ const Navbar = ({ user }) => {
     const navItems = [
         { href: '#', label: t('navbar.home') },
         { href: '#about', label: t('navbar.about') },
-        { href: '#case', label: t('navbar.case') },
         { href: '#work', label: t('navbar.work') },
+        { href: '#case', label: t('navbar.case') },
+        { href: '#edu', label: t('edu_section.show_btn') },
         { href: '#happyPatient', label: t('navbar.happyPatient') },
     ]
 

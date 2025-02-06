@@ -3,7 +3,6 @@ import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { useTranslation } from 'react-i18next'
-import AddCase from './ui/AddCase'
 import { Loader, Trash2 } from 'lucide-react'
 import Button from './ui/Button'
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
@@ -59,7 +58,7 @@ const EduSection = ({ user }) => {
     }
     return (
         <>
-            <section className='mt-10 mb-2 md:px-4 max-md:px-6' id='case'>
+            <section className='mt-10 mb-2 md:px-4 max-md:px-6' id='edu'>
                 <h1 className='w-fit text-lg py-2 px-6 rounded-full bg-primary text-white mx-auto mb-3'>
                     {t('edu_section.show_btn')}
                 </h1>
@@ -74,7 +73,10 @@ const EduSection = ({ user }) => {
                     <div className='w-fit mx-auto mb-4'>
                         <Button
                             className='px-4 mt-2'
-                            onClick={() => setShowAddInjury(true)}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setShowAddInjury(true)
+                            }}
                         >
                             {t('add_injuries.button')}
                         </Button>
@@ -172,6 +174,7 @@ const EduSection = ({ user }) => {
                 <AddInjury
                     setEditAboutHero={setShowAddInjury}
                     language={language}
+                    editAboutHero={showAddInjury}
                     getAllInjuries={getAllInjuries}
                 />
             )}

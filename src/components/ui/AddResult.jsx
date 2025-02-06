@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Camera, CircleX, Loader } from 'lucide-react'
 import Button from './Button'
 import { useTranslation } from 'react-i18next'
@@ -6,8 +6,9 @@ import { toast } from 'react-toastify'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { addDoc, collection } from 'firebase/firestore'
 import { db, storage } from '../../config/firebaseConfig'
+import { useRef } from 'react'
 
-const AddResult = ({ setEditAboutHero, getAllImage }) => {
+const AddResult = ({ setEditAboutHero, getAllImage, editAboutHero }) => {
     const [imagePreview, setImagePreview] = useState({
         before: null,
         after: null,
@@ -15,6 +16,7 @@ const AddResult = ({ setEditAboutHero, getAllImage }) => {
     const [imageFile, setImageFile] = useState({ before: null, after: null })
     const [loading, setLoading] = useState(false)
     const { t } = useTranslation()
+    const updateAboutRef = useRef(null)
     const handleImageChange = (e) => {
         const file = e.target.files[0]
         const name = e.target.name
@@ -60,8 +62,29 @@ const AddResult = ({ setEditAboutHero, getAllImage }) => {
             setImagePreview({ before: null, after: null })
         }
     }
+
+    const onClickEvent = (e) => {
+        if (
+            updateAboutRef.current &&
+            !updateAboutRef.current.contains(e.target)
+        ) {
+            setEditAboutHero(false) // Close when clicking outside
+        }
+    }
+
+    useEffect(() => {
+        if (editAboutHero) {
+            document.addEventListener('click', onClickEvent)
+        } else {
+            document.removeEventListener('click', onClickEvent)
+        }
+        return () => document.removeEventListener('click', onClickEvent)
+    }, [editAboutHero])
     return (
-        <div className='fixed top-0 ltr:right-0 rtl:left-0 w-full sm:w-[500px] h-full  py-3 px-5 bg-white  overflow-y-auto z-10'>
+        <div
+            className='fixed top-0 ltr:right-0 rtl:left-0 w-full sm:w-[500px] h-full  py-3 px-5 bg-white  overflow-y-auto z-10'
+            ref={updateAboutRef}
+        >
             <CircleX
                 className='text-black absolute top-5 ltr:right-5 rtl:left-5 cursor-pointer '
                 size={25}

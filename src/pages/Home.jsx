@@ -27,7 +27,6 @@ const Home = () => {
     const [heroAboutData, setHeroAboutData] = useState({})
     const {
         i18n: { dir, language },
-        t,
     } = useTranslation()
     const getHeroAboutData = async () => {
         setLoading(true)
@@ -68,21 +67,12 @@ const Home = () => {
             >
                 <Navbar user={user} />
                 <HeroSec heroAboutData={heroAboutData} />
-                {user && (
-                    <div className='px-main_padding w-fit'>
-                        <Button
-                            className='px-4'
-                            onClick={() => setEditAboutHero((pre) => !pre)}
-                        >
-                            {t('edit_hero_about')}
-                        </Button>
-                    </div>
-                )}
-                <ExploreMore />
+                <ExploreMore user={user} setEditAboutHero={setEditAboutHero} />
                 {user && editAboutHero && (
                     <UpdateAbout
                         setEditAboutHero={setEditAboutHero}
                         heroAboutData={heroAboutData}
+                        editAboutHero={editAboutHero}
                         getHeroAboutData={getHeroAboutData}
                     />
                 )}
