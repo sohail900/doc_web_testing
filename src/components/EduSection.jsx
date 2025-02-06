@@ -115,7 +115,7 @@ const EduSection = ({ user }) => {
                     >
                         {allInjuries.map((caseItem) => (
                             <SwiperSlide key={caseItem.key}>
-                                <div className='relative flex flex-col bg-white rounded-xl shadow-lg sm:h-[350px] overflow-hidden cursor-pointer'>
+                                <div className='relative flex flex-col bg-white rounded-xl shadow-lg sm:h-[350px] overflow-hidden'>
                                     {user && (
                                         <div className='absolute right-5 top-3 size-10 rounded-xl bg-white grid place-items-center'>
                                             <Trash2
@@ -138,21 +138,18 @@ const EduSection = ({ user }) => {
                                     </div>
                                     {/* Content Section */}
                                     <div className='h-1/2 flex flex-col justify-center px-6 py-2'>
-                                        <h3 className='text-xl font-semibold text-blue-600'>
+                                        <Link
+                                            to={`/injury-details/${caseItem.key}`}
+                                            className='text-xl font-semibold text-black hover:underline hover:text-primary w-fit'
+                                        >
                                             {caseItem.injuryTitle}
-                                        </h3>
+                                        </Link>
 
                                         <p
                                             className={`text-gray-600 mt-2 text-ellipsis line-clamp-3`}
                                         >
                                             {caseItem.description}{' '}
                                         </p>
-                                        <Link
-                                            className='text-primary underline cursor-pointer'
-                                            to={`/injury-details/${caseItem.key}`}
-                                        >
-                                            see more
-                                        </Link>
                                     </div>
                                 </div>
                             </SwiperSlide>

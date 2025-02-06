@@ -57,7 +57,7 @@ const WorkBefore = () => {
                             {hospitalsData[contentSlider].experience}
                         </p>
                     </div>
-                    <div className='mt-4 flex items-center gap-2 absolute bottom-24'>
+                    <div className='mt-4 flex items-center gap-2 sm:absolute sm:bottom-24'>
                         <button
                             className='size-8 rounded-full grid place-items-center border border-primary text-primary disabled:border-gray-500 disabled:text-gray-500 rtl:order-2'
                             disabled={contentSlider === 0}
