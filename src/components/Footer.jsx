@@ -1,7 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDocName } from '../hooks/useDocName'
 
 const Footer = () => {
+    const { docName } = useDocName()
+
     const { t } = useTranslation()
     return (
         <footer className='bg-[#12171F] text-gray-300 pt-12'>
@@ -10,10 +13,10 @@ const Footer = () => {
                     {/* Logo Section */}
                     <div className='space-y-4 '>
                         <h2 className='text-white text-4xl font-medium'>
-                            {t('footer.logo')}
+                            {t('navbar.logo')}
                         </h2>
                         <p className='text-[0.95rem] text-gray-300  leading-relaxed'>
-                            {t('footer.para')}
+                            {docName}
                         </p>
                     </div>
 

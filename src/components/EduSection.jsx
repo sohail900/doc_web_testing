@@ -9,6 +9,7 @@ import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
 import { db } from '../config/firebaseConfig'
 import { toast } from 'react-toastify'
 import AddInjury from './ui/AddInjury'
+import { Link, Navigate } from 'react-router-dom'
 
 const EduSection = ({ user }) => {
     const {
@@ -142,27 +143,16 @@ const EduSection = ({ user }) => {
                                         </h3>
 
                                         <p
-                                            className={`text-gray-600 mt-2 ${
-                                                isShowMore === caseItem.key
-                                                    ? 'overflow-y-auto'
-                                                    : 'text-ellipsis line-clamp-2'
-                                            } `}
+                                            className={`text-gray-600 mt-2 text-ellipsis line-clamp-3`}
                                         >
                                             {caseItem.description}{' '}
                                         </p>
-                                        <span
-                                            className='text-primary underline'
-                                            onClick={() =>
-                                                setIsShowMore((pre) => {
-                                                    if (pre) return null
-                                                    return caseItem.key
-                                                })
-                                            }
+                                        <Link
+                                            className='text-primary underline cursor-pointer'
+                                            to={`/injury-details/${caseItem.key}`}
                                         >
-                                            {isShowMore === caseItem.key
-                                                ? 'show less'
-                                                : 'show more'}
-                                        </span>
+                                            see more
+                                        </Link>
                                     </div>
                                 </div>
                             </SwiperSlide>

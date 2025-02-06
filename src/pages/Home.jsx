@@ -19,12 +19,14 @@ import { auth, db } from '../config/firebaseConfig'
 import Loading from './Loading'
 import { doc, getDoc } from 'firebase/firestore'
 import EduSection from '../components/EduSection'
+import { useDocName } from '../hooks/useDocName'
 
 const Home = () => {
     const [editAboutHero, setEditAboutHero] = useState(false)
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const [heroAboutData, setHeroAboutData] = useState({})
+    const { setDocName } = useDocName()
     const {
         i18n: { dir, language },
     } = useTranslation()
@@ -36,6 +38,9 @@ const Home = () => {
                 doc(db, collectionName, 'hero_about')
             )
             setHeroAboutData({ ...docSnapShot.data() })
+            setDocName(
+                docSnapShot.data().name + '! ' + docSnapShot.data().degree
+            )
         } catch (e) {
             console.log(e)
         } finally {

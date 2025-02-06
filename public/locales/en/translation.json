@@ -178,7 +178,11 @@
     "add_injuries": {
         "title": "Add Injuries (Only English)",
         "injuryTitle": "Injury Title",
-        "button": "Add a new injury"
+        "button": "Add a new injury",
+        "surgery": "Surgery",
+        "how_to_heal": "How to Heal",
+        "yes": "Yes",
+        "no": "No"
     },
     "note": "This is to edit only the English content. To edit the Arabic content, please switch the language.",
     "no_reviews": "No, Reviews Found",
