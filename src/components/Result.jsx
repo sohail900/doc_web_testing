@@ -78,7 +78,7 @@ const Result = ({ user }) => {
                                     <div className='w-full h-full mx-auto flex'>
                                         <div className='relative'>
                                             <button className='absolute left-5 bottom-4 w-fit text-base py-1 px-4 rounded-full bg-primary text-white'>
-                                                After
+                                                {t("add_results.after")}
                                             </button>
                                             <img
                                                 src={after}
@@ -91,7 +91,7 @@ const Result = ({ user }) => {
                                                 className='w-full h-full'
                                             />
                                             <button className='absolute right-5 bottom-4 w-fit text-base py-1 px-4 rounded-full bg-primary text-white'>
-                                                Before
+                                                {t("add_results.before")}
                                             </button>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@ const Result = ({ user }) => {
                         </Swiper>
                     )}
                 </div>
-                <div className='flex justify-center gap-2 items-center'>
+                <div className='flex justify-center gap-2 items-center' dir='ltr'>
                     <div
                         onClick={() => swiperRef.current?.slidePrev()}
                         className='size-12 grid text-primary place-items-center border bg-black/20 rounded-full cursor-pointer active:scale-90 '

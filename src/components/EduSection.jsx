@@ -17,7 +17,7 @@ const EduSection = ({ user }) => {
         i18n: { language },
     } = useTranslation()
     const [showAddInjury, setShowAddInjury] = useState(false)
-    const [isShowMore, setIsShowMore] = useState(null)
+
     const [allInjuries, setAllInjuries] = useState([])
     const [loading, setLoading] = useState(false)
 

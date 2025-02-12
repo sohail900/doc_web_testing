@@ -28,19 +28,18 @@ const Navbar = ({ user }) => {
     }
 
     return (
-        <nav className='px-6 md:px-main_padding h-14 flex items-center justify-between relative'>
+        <nav className='px-6 md:px-main_padding h-14 flex items-center  justify-between relative'>
             <h1 className='text-2xl text-primary font-semibold'>
                 <Link to='/'>{t('navbar.logo')}</Link>
             </h1>
 
             <div
-                className={`lg:hidden fixed top-0 ${
-                    isMenuOpen ? 'left-0' : '-left-full'
-                } w-64 h-screen bg-white shadow-lg transition-all duration-300 ease-in-out z-50`}
+                className={`lg:hidden fixed top-0 ${isMenuOpen ? 'left-0' : '-left-full'
+                    } w-full text-center sm:w-64 h-screen bg-white shadow-lg transition-all duration-300 ease-in-out z-50`}
             >
                 <div className='p-4'>
                     <button
-                        className='text-primary mb-4'
+                        className='text-primary mb-4 float-left'
                         onClick={toggleMenu}
                         aria-label='Close menu'
                     >
@@ -58,6 +57,31 @@ const Navbar = ({ user }) => {
                                 </a>
                             </li>
                         ))}
+                        <li className='mx-auto'>
+                            <button
+                                className='py-2 px-6 rounded-full bg-primary text-white transition-all duration-200 ease-linear flex items-center group gap-2 hover:opacity-70 active:scale-95'
+                                onClick={() =>
+                                    changeLanguage(language === 'en' ? 'ar' : 'en')
+                                }
+                            >
+                                <span >
+                                    {' '}
+                                    {language === 'en' ? t('language') : t('language')}
+                                </span>
+                                <Globe
+                                    className='transition-transform duration-[2000ms] ease-in-out group-hover:rotate-[360deg]'
+                                    size={20}
+                                />
+                            </button>
+
+                        </li>
+                        <li>                            <button
+                            onClick={logoutHandler}
+                            className='py-2 px-6 rounded-full bg-primary text-white transition-all duration-200 ease-linear hover:opacity-70 active:scale-95'
+                        >
+                            {t('navbar.logout')}
+                        </button></li>
+
                     </ul>
                 </div>
             </div>
@@ -73,7 +97,7 @@ const Navbar = ({ user }) => {
                     </li>
                 ))}
                 {user && (
-                    <li>
+                    <li className="max-lg:hidden">
                         <button
                             onClick={logoutHandler}
                             className='py-2 px-6 rounded-full bg-primary text-white transition-all duration-200 ease-linear hover:opacity-70 active:scale-95 -mr-5'
@@ -82,7 +106,7 @@ const Navbar = ({ user }) => {
                         </button>
                     </li>
                 )}
-                <li>
+                <li className='max-lg:hidden'>
                     <button
                         className='py-2 px-6 rounded-full bg-primary text-white transition-all duration-200 ease-linear flex items-center group gap-2 hover:opacity-70 active:scale-95'
                         onClick={() =>

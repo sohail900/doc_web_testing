@@ -9,17 +9,15 @@ const ExploreMore = ({ setEditAboutHero, user }) => {
             <img src='/assets/explore_more.png' alt='explore-more' width={20} />
             <h2 className='font-medium text-sm'>{t('explore_more')}</h2>
             {user && (
-                <div className='px-main_padding w-fit mt-2'>
-                    <Button
-                        className='px-4'
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            setEditAboutHero((pre) => !pre)
-                        }}
-                    >
-                        {t('edit_hero_about')}
-                    </Button>
-                </div>
+                <Button
+                    className='px-4 w-fit'
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        setEditAboutHero((pre) => !pre)
+                    }}
+                >
+                    {t('edit_hero_about')}
+                </Button>
             )}
         </section>
     )

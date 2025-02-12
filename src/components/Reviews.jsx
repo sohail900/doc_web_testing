@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import AddReviews from './ui/AddReviews'
 import Button from './ui/Button'
-import { Loader } from 'lucide-react'
+import { Loader, Trash2 } from 'lucide-react'
 import { db } from '../config/firebaseConfig'
-import { collection, getDocs, doc } from 'firebase/firestore'
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 
 const Reviews = ({ user }) => {
     const {
@@ -34,13 +35,31 @@ const Reviews = ({ user }) => {
         getAllReviews()
     }, [language])
 
+    const handleDelete = async (caseId) => {
+        try {
+            const reviewDoc = doc(
+                db,
+                language,
+                'reviews',
+                'allReviews',
+                caseId
+            )
+            await deleteDoc(reviewDoc)
+            setPatientReviews(patientReviews.filter((item) => item.key !== caseId))
+            toast.success(t('review_delete_message'))
+        } catch (error) {
+            console.error('Error deleting case:', error)
+            toast.error('Error deleting case')
+        }
+    }
+
     return (
         <>
             <section
                 className='px-6 md:px-main_padding mt-20 mb-16'
                 id='happyPatient'
             >
-                <h1 className='text-4xl font-medium mb-5'>
+                <h1 className='text-4xl font-medium mb-5 text-center'>
                     {t('reviews.title')}{' '}
                     <span className='text-primary'>
                         {t('reviews.title_with_primary')}
@@ -94,6 +113,17 @@ const Reviews = ({ user }) => {
                                             className='w-full h-full object-cover rounded-full'
                                         />
                                     </div>
+                                    {user && (
+                                        <div className='absolute right-5 top-3 size-10 rounded-xl bg-white grid place-items-center'>
+                                            <Trash2
+                                                className=' text-red-600 cursor-pointer'
+                                                onClick={() =>
+                                                    handleDelete(key)
+                                                }
+                                                size={23}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             )
                         })

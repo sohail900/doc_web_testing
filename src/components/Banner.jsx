@@ -2,7 +2,7 @@ const Banner = ({ heroAboutData }) => {
     const repeatedText = Array(20).fill(heroAboutData.name)
 
     return (
-        <section className='relative min-h-[500px] bg-blue-50/40 backdrop-blur-3xl overflow-hidden flex items-center justify-center mt-10'>
+        <section className='relative min-h-[500px] bg-blue-50/40 backdrop-blur-3xl overflow-hidden flex items-center justify-center mt-10 max-sm:hidden'>
             {/* Background repeating text */}
             <div className='absolute inset-0 select-none'>
                 <div className='flex flex-wrap gap-4 opacity-10 text-5xl sm:text-9xl font-semibold  p-8 flex-col text-center'>

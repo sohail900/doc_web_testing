@@ -193,5 +193,11 @@
     "review_success_message": "تم إضافة التقييمات بنجاح",
     "video_success_message": "تم إضافة الفيديو الجديد بنجاح",
     "injury_success_message": "تم إضافة الإصابة الجديدة بنجاح",
-    "injury_delete_message": "تم حذف الإصابة بنجاح"
+    "injury_delete_message": "تم حذف الإصابة بنجاح",
+    "review_delete_message": "تم حذف التقييم بنجاح",
+    "description": "الوصف",
+    "preventive": "إجراءات وقائية",
+    "healing": "عملية الشفاء",
+    "treatment": "تحضير العلاج",
+    "recovery": "إرشادات التعافي"
 }

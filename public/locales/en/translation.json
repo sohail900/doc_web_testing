@@ -193,5 +193,11 @@
     "review_success_message": "Successfully added reviews",
     "video_success_message": "Successfully added a new video",
     "injury_success_message": "Successfully added a new injury",
-    "injury_delete_message": "Injury deleted successfully"
+    "injury_delete_message": "Injury deleted successfully",
+    "review_delete_message": "Review deleted successfully",
+    "description": "Description",
+    "preventive": "Preventive Measures",
+    "healing": "Healing Process",
+    "treatment": "Treatment Preparation",
+    "recovery": "Recovery Guidelines"
 }

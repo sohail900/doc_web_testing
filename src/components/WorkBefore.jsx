@@ -57,7 +57,7 @@ const WorkBefore = () => {
                             {hospitalsData[contentSlider].experience}
                         </p>
                     </div>
-                    <div className='mt-4 flex items-center gap-2 sm:absolute sm:bottom-24'>
+                    {/* <div className='mt-4 flex items-center gap-2 sm:absolute sm:bottom-24'>
                         <button
                             className='size-8 rounded-full grid place-items-center border border-primary text-primary disabled:border-gray-500 disabled:text-gray-500 rtl:order-2'
                             disabled={contentSlider === 0}
@@ -74,10 +74,28 @@ const WorkBefore = () => {
                         >
                             <ChevronRight size={20} />
                         </button>
-                    </div>
-                    <div className='py-2 px-4 w-full rounded-xl bg-white flex justify-between items-center mt-4'>
+                    </div> */}
+                    <div className='py-4 px-4 w-full rounded-xl bg-white flex justify-between items-center mt-4'>
                         <h1> {t('experience.hospitals')}</h1>
-                        <p className='size-10 grid place-items-center rounded-full text-primary border border-primary'>
+                        <div className='flex items-center gap-2 '>
+                            <button
+                                className='size-8 rounded-full grid place-items-center border border-primary text-primary disabled:border-gray-500 disabled:text-gray-500 rtl:order-2'
+                                disabled={contentSlider === 0}
+                                onClick={decrements}
+                            >
+                                <ChevronLeft size={20} />
+                            </button>
+                            <button
+                                className='size-8 rounded-full grid place-items-center border border-primary text-primary disabled:border-gray-500 disabled:text-gray-500 rtl:order-1'
+                                disabled={
+                                    contentSlider === hospitalsData.length - 1
+                                }
+                                onClick={increments}
+                            >
+                                <ChevronRight size={20} />
+                            </button>
+                        </div>
+                        <p className='size-8 grid place-items-center rounded-full text-primary border border-primary'>
                             {contentSlider + 1}
                         </p>
                     </div>
