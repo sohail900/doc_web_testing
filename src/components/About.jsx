@@ -85,11 +85,22 @@ const About = ({ heroAboutData }) => {
                         {heroAboutData.name}
                     </h2>
                     <p className='text-gray-500 mt-1'>{heroAboutData.degree}</p>
-                </div>
-
-                <p className='text-gray-600 leading-relaxed text-ellipsis line-clamp-6'>
+                </div>      <p className='text-gray-600 leading-relaxed text-ellipsis line-clamp-6'>
                     {heroAboutData.aboutDesc}
                 </p>
+                <span>
+                    <ol
+                        className={`text-gray-600 leading-relaxed text-ellipsis line-clamp-6 ltr:pl-5 rtl:pr-5 list-disc mt-2`}
+                    >
+                        <li>
+                            <p>{t("experience.experience1.title")}</p>
+                        </li>
+                        <li>
+                            <p>{t("experience.experience2.title")}</p>
+                        </li>
+                    </ol>
+                </span>
+
 
                 <div className='flex gap-6 mt-8 max-sm:flex-wrap'>
                     <div className='flex-1 bg-primary text-white rounded-2xl p-6 text-center'>

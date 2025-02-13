@@ -59,7 +59,7 @@ const EduSection = ({ user }) => {
     }
     return (
         <>
-            <section className='mt-10 mb-2 md:px-4 max-md:px-6' id='edu'>
+            <section className='mt-20 mb-2 md:px-4 max-md:px-6' id='edu'>
                 <h1 className='w-fit text-lg py-2 px-6 rounded-full bg-primary text-white mx-auto mb-3'>
                     {t('edu_section.show_btn')}
                 </h1>

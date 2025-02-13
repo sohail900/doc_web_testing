@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { Camera, CircleX, Info, Loader, Video } from 'lucide-react'
+import { Camera, CircleX, Info, LinkIcon, Loader, Video } from 'lucide-react'
 import InputField from './InputField'
 import Button from './Button'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,13 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 import { db, storage } from '../../config/firebaseConfig'
+
+const uploadFile = async (file, path) => {
+    if (!file) return ''
+    const fileRef = ref(storage, `${path}/${file.name}`)
+    await uploadBytes(fileRef, file)
+    return await getDownloadURL(fileRef)
+}
 
 const AddInjury = ({
     setEditAboutHero,
@@ -18,6 +25,10 @@ const AddInjury = ({
     const [imageFile, setImageFile] = useState(null)
     const [healingVideoFile, setHealingVideoFile] = useState(null)
     const [recoveryVideoFile, setRecoveryVideoFile] = useState(null)
+    const [healingVideoUrl, setHealingVideoUrl] = useState('')
+    const [recoveryVideoUrl, setRecoveryVideoUrl] = useState('')
+    const [healingVideoType, setHealingVideoType] = useState('file') // 'file' or 'url'
+    const [recoveryVideoType, setRecoveryVideoType] = useState('file') // 'file' or 'url'
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         injuryTitle: '',
@@ -34,25 +45,17 @@ const AddInjury = ({
     const updateAboutRef = useRef(null)
     const { t } = useTranslation()
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0]
-        if (file) {
-            setImageFile(file)
-            const reader = new FileReader()
-            reader.onloadend = () => {
-                setImagePreview(reader.result)
-            }
-            reader.readAsDataURL(file)
-        }
-    }
+
 
     const handleVideoChange = (e, type) => {
         const file = e.target.files[0]
         if (file) {
             if (type === 'healing') {
                 setHealingVideoFile(file)
+                setHealingVideoUrl('')
             } else {
                 setRecoveryVideoFile(file)
+                setRecoveryVideoUrl('')
             }
         }
     }
@@ -65,34 +68,74 @@ const AddInjury = ({
         }))
     }
 
-    const uploadFile = async (file, path) => {
-        if (!file) return ''
-        const fileRef = ref(storage, `${path}/${file.name}`)
-        await uploadBytes(fileRef, file)
-        return await getDownloadURL(fileRef)
+
+    const handleUrlChange = (e, type) => {
+        const url = e.target.value
+        if (type === 'healing') {
+            setHealingVideoUrl(url)
+            setHealingVideoFile(null)
+        } else {
+            setRecoveryVideoUrl(url)
+            setRecoveryVideoFile(null)
+        }
+    }
+    const handleImageChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            setImageFile(file)
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setImagePreview(reader.result)
+            }
+            reader.readAsDataURL(file)
+        }
+    }
+
+    const toggleVideoInputType = (type) => {
+        if (type === 'healing') {
+            setHealingVideoType(prev => prev === 'file' ? 'url' : 'file')
+            setHealingVideoFile(null)
+            setHealingVideoUrl('')
+        } else {
+            setRecoveryVideoType(prev => prev === 'file' ? 'url' : 'file')
+            setRecoveryVideoFile(null)
+            setRecoveryVideoUrl('')
+        }
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
         try {
-            if (!imageFile || !formData.injuryTitle || !formData.description) {
+            if (!imageFile || !formData.injuryTitle || !formData.description || recoveryVideoType == "url" && !recoveryVideoUrl || !recoveryVideoType == "file" && !recoveryVideoFile || !healingVideoType == "url" && !healingVideoType || !healingVideoType == "file" && !healingVideoType) {
                 return toast.error('Required fields are missing.')
             }
 
-            // Upload image and videos
-            const [imageUrl, healingVideoUrl, recoveryVideoUrl] = await Promise.all([
-                uploadFile(imageFile, 'cases/images'),
-                uploadFile(healingVideoFile, 'cases/healing-videos'),
-                uploadFile(recoveryVideoFile, 'cases/recovery-videos')
-            ])
+            // Upload image
+            const imageUrl = await uploadFile(imageFile, 'cases/images')
+
+            // Handle healing video
+            let finalHealingVideoUrl = ''
+            if (healingVideoType === 'file' && healingVideoFile) {
+                finalHealingVideoUrl = await uploadFile(healingVideoFile, 'cases/healing-videos')
+            } else if (healingVideoType === 'url' && healingVideoUrl) {
+                finalHealingVideoUrl = healingVideoUrl
+            }
+
+            // Handle recovery video
+            let finalRecoveryVideoUrl = ''
+            if (recoveryVideoType === 'file' && recoveryVideoFile) {
+                finalRecoveryVideoUrl = await uploadFile(recoveryVideoFile, 'cases/recovery-videos')
+            } else if (recoveryVideoType === 'url' && recoveryVideoUrl) {
+                finalRecoveryVideoUrl = recoveryVideoUrl
+            }
 
             const finalData = {
                 ...formData,
                 imageUrl,
                 videoUrls: {
-                    healingProcess: healingVideoUrl,
-                    recovery: recoveryVideoUrl
+                    healingProcess: finalHealingVideoUrl,
+                    recovery: finalRecoveryVideoUrl
                 },
                 createdAt: serverTimestamp(),
             }
@@ -120,6 +163,8 @@ const AddInjury = ({
             setImageFile(null)
             setHealingVideoFile(null)
             setRecoveryVideoFile(null)
+            setHealingVideoUrl('')
+            setRecoveryVideoUrl('')
 
             await getAllInjuries()
         } catch (error) {
@@ -129,6 +174,7 @@ const AddInjury = ({
             setLoading(false)
         }
     }
+
 
     const onClickEvent = (e) => {
         if (
@@ -158,7 +204,7 @@ const AddInjury = ({
                 size={25}
                 onClick={() => setEditAboutHero(false)}
             />
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-2" onSubmit={handleSubmit}>
                 <h2 className="text-xl font-semibold">
                     {t('add_injuries.title')}
                 </h2>
@@ -198,98 +244,161 @@ const AddInjury = ({
                 <InputField
                     title={t('add_injuries.injuryTitle')}
                     type="text"
-                    placeholder="Injury Title"
                     id="injuryTitle"
+                    placeholder={t('placeholders.injury_title')}
                     required
                     name="injuryTitle"
                     value={formData.injuryTitle}
                     onChange={handleInputChange}
                 />
 
-                <h3 className="text-primary/80 font-medium">Description</h3>
+                <h3 className="text-primary/80 font-medium">{t("description")}</h3>
                 <textarea
                     className="py-3 px-3 w-full rounded-lg bg-black/5 text-black focus-within:outline-primary/30"
                     rows="4"
-                    placeholder="Describe how the injury occurs"
                     name="description"
+                    placeholder={t('placeholders.description')}
                     required
                     value={formData.description}
                     onChange={handleInputChange}
                 />
 
                 {/* Additional Fields */}
-                <h3 className="text-primary/80 font-medium">Preventive Measures</h3>
+                <h3 className="text-primary/80 font-medium">{t("preventive")}</h3>
                 <textarea
                     className="py-3 px-3 w-full rounded-lg bg-black/5 text-black focus-within:outline-primary/30"
                     rows="4"
-                    placeholder="Provide details on preventive measures"
+                    placeholder={t('placeholders.preventive')}
                     name="preventiveMeasures"
                     value={formData.preventiveMeasures}
                     onChange={handleInputChange}
                 />
 
-                <h3 className="text-primary/80 font-medium">Healing Process</h3>
+                <h3 className="text-primary/80 font-medium">{t("healing")}</h3>
                 <textarea
                     className="py-3 px-3 w-full rounded-lg bg-black/5 text-black focus-within:outline-primary/30"
                     rows="4"
-                    placeholder="Explain how the injury heals"
+                    placeholder={t('placeholders.healing')}
                     name="healingProcess"
                     value={formData.healingProcess}
                     onChange={handleInputChange}
                 />
 
                 {/* Healing Video Upload */}
+                {/* Healing Video Section */}
                 <div className="space-y-2">
-                    <h3 className="text-primary/80 font-medium">Healing Process Video (Optional)</h3>
-                    <label className="flex items-center gap-2 w-full p-3 rounded-lg border-2 border-dashed border-primary cursor-pointer">
-                        <Video className="w-6 h-6 text-gray-400" />
-                        <span className="text-gray-500">
-                            {healingVideoFile ? healingVideoFile.name : 'Upload healing process video'}
-                        </span>
+                    <h3 className="text-primary/80 font-medium">{t("healing_video")}</h3>
+                    <div className="flex gap-2 pb-2">
+                        <Button
+                            type="button"
+                            dir="ltr"
+                            onClick={() => toggleVideoInputType('healing')}
+                            className={`flex items-center justify-center flex-1 ${healingVideoType === 'file' ? 'bg-primary' : 'bg-gray-400'}`}
+                        >
+                            <Video className="w-4 h-4 mr-2" />
+                            {t("import_video")}
+                        </Button>
+                        <Button
+                            dir="ltr"
+                            type="button"
+                            onClick={() => toggleVideoInputType('healing')}
+                            className={`flex items-center justify-center flex-1 ${healingVideoType === 'url' ? 'bg-primary' : 'bg-gray-400'}`}
+                        >
+                            <LinkIcon className="w-4 h-4 mr-2" />
+                            {t("video_url")}
+                        </Button>
+                    </div>
+                    {healingVideoType === 'file' ? (
+                        <label className="flex items-center gap-2 w-full p-3 rounded-lg border-2 border-dashed border-primary cursor-pointer">
+                            <Video className="w-6 h-6 text-gray-400" />
+                            <span className="text-gray-500">
+                                {healingVideoFile ? healingVideoFile.name : t("placeholders.upload_healing_process")}
+                            </span>
+                            <input
+                                type="file"
+                                className="hidden"
+                                accept="video/*"
+                                onChange={(e) => handleVideoChange(e, 'healing')}
+                            />
+                        </label>
+                    ) : (
                         <input
-                            type="file"
-                            className="hidden"
-                            accept="video/*"
-                            onChange={(e) => handleVideoChange(e, 'healing')}
+                            type="url"
+                            className="py-3 px-3 w-full rounded-lg bg-black/5 text-black focus-within:outline-primary/30"
+                            placeholder={t('placeholders.healing_url')}
+                            value={healingVideoUrl}
+                            onChange={(e) => handleUrlChange(e, 'healing')}
                         />
-                    </label>
+                    )}
                 </div>
 
-                <h3 className="text-primary/80 font-medium">Treatment Preparation</h3>
+                <h3 className="text-primary/80 font-medium">{t("treatment")}</h3>
                 <textarea
                     className="py-3 px-3 w-full rounded-lg bg-black/5 text-black focus-within:outline-primary/30"
                     rows="4"
-                    placeholder="Include preparation steps for treatment"
+                    placeholder={t('placeholders.treatment')}
+
                     name="treatmentPreparation"
                     value={formData.treatmentPreparation}
                     onChange={handleInputChange}
                 />
 
-                <h3 className="text-primary/80 font-medium">Recovery Guidelines</h3>
+                <h3 className="text-primary/80 font-medium">{t("recovery")}</h3>
                 <textarea
                     className="py-3 px-3 w-full rounded-lg bg-black/5 text-black focus-within:outline-primary/30"
                     rows="4"
-                    placeholder="Provide recovery guidelines"
                     name="recoveryGuidelines"
+                    placeholder={t('placeholders.recovery')}
                     value={formData.recoveryGuidelines}
                     onChange={handleInputChange}
                 />
 
                 {/* Recovery Video Upload */}
                 <div className="space-y-2">
-                    <h3 className="text-primary/80 font-medium">Recovery Video (Optional)</h3>
-                    <label className="flex items-center gap-2 w-full p-3 rounded-lg border-2 border-dashed border-primary cursor-pointer">
-                        <Video className="w-6 h-6 text-gray-400" />
-                        <span className="text-gray-500">
-                            {recoveryVideoFile ? recoveryVideoFile.name : 'Upload recovery video'}
-                        </span>
+                    <h3 className="text-primary/80 font-medium">{t("recovery_video")}</h3>
+                    <div className="flex gap-2 pb-2">
+                        <Button
+                            type="button"
+                            dir="ltr"
+                            onClick={() => toggleVideoInputType('recovery')}
+                            className={`flex-1 flex justify-center items-center ${recoveryVideoType === 'file' ? 'bg-primary' : 'bg-gray-400'}`}
+                        >
+                            <Video className="w-4 h-4 mr-2" />
+                            {t("import_video")}
+                        </Button>
+                        <Button
+                            type="button"
+                            dir="ltr"
+                            onClick={() => toggleVideoInputType('recovery')}
+                            className={`flex-1 flex justify-center items-center ${recoveryVideoType === 'url' ? 'bg-primary' : 'bg-gray-400'}`}
+                        >
+                            <LinkIcon className="w-4 h-4 mr-2" />
+                            {t("video_url")}
+                        </Button>
+                    </div>
+                    {recoveryVideoType === 'file' ? (
+                        <label className="flex items-center gap-2 w-full p-3 rounded-lg border-2 border-dashed border-primary cursor-pointer">
+                            <Video className="w-6 h-6 text-gray-400" />
+                            <span className="text-gray-500">
+                                {recoveryVideoFile ? recoveryVideoFile.name : t("placeholders.upload_recovery_video")}}
+                            </span>
+                            <input
+                                type="file"
+                                className="hidden"
+
+                                accept="video/*"
+                                onChange={(e) => handleVideoChange(e, 'recovery')}
+                            />
+                        </label>
+                    ) : (
                         <input
-                            type="file"
-                            className="hidden"
-                            accept="video/*"
-                            onChange={(e) => handleVideoChange(e, 'recovery')}
+                            type="url"
+                            className="py-3 px-3 w-full rounded-lg bg-black/5 text-black focus-within:outline-primary/30"
+                            placeholder={t('placeholders.recovery_url')}
+                            value={recoveryVideoUrl}
+                            onChange={(e) => handleUrlChange(e, 'recovery')}
                         />
-                    </label>
+                    )}
                 </div>
 
                 <Button

@@ -1,52 +1,76 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { doc, getDoc, collection } from 'firebase/firestore'
+import ReactPlayer from "react-player"
 import Loading from '../pages/Loading'
 import { useTranslation } from 'react-i18next'
 import Navbar from './Navbar'
 import { db } from '../config/firebaseConfig'
-import { ArrowLeft, Play, Pause } from 'lucide-react'
+import { ArrowLeft, Play, Pause, Loader } from 'lucide-react'
+
 
 const VideoPlayer = ({ url }) => {
-    const [isPlaying, setIsPlaying] = useState(false)
-    const [isHovering, setIsHovering] = useState(false)
-    const videoRef = useRef(null)
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const [isHovering, setIsHovering] = useState(false);
+    const videoRef = useRef(null);
+
+    // Check if URL is from a third-party source
+    const isThirdParty = ReactPlayer.canPlay(url);
 
     const togglePlay = () => {
         if (videoRef.current) {
             if (isPlaying) {
-                videoRef.current.pause()
+                videoRef.current.pause();
             } else {
-                videoRef.current.play()
+                videoRef.current.play();
             }
-            setIsPlaying(!isPlaying)
+            setIsPlaying(!isPlaying);
         }
-    }
+    };
 
     return (
-        <div className="relative w-full mb-6 group rounded-lg overflow-hidden h-[300px]">
-            <video
-                ref={videoRef}
-                src={url}
-                className="w-full h-full object-cover"
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-            />
-            <button
-                className={`h-full absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300 ${isPlaying && !isHovering ? 'opacity-0' : 'opacity-100'
-                    } group-hover:opacity-100`}
-                onClick={togglePlay}
-            >
-                {isPlaying ? (
-                    <Pause className="w-12 h-12 text-white" />
-                ) : (
-                    <Play className="w-12 h-12 text-white" />
+        <div className="relative w-full mb-6 group rounded-lg overflow-hidden h-[350px] ">
+            {/* Use ReactPlayer for YouTube, Facebook, etc. */}
+            {isThirdParty ? (<>
+                {loading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                        <Loader className="w-8 h-8 text-white animate-spin" />
+                    </div>
                 )}
-            </button>
 
+                <ReactPlayer url={url} controls width="100%" height="100%" onReady={() => setLoading(false)} />
+            </>
+            ) : (
+                // Use <video> tag for direct file URLs
+                <div className="relative">
+                    <video
+                        ref={videoRef}
+                        src={url}
+                        className="w-full h-full object-cover"
+                        onMouseEnter={() => setIsHovering(true)}
+                        onMouseLeave={() => setIsHovering(false)}
+                    />
+                    <button
+                        className={`h-full absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300 ${isPlaying && !isHovering ? "opacity-0" : "opacity-100"
+                            } group-hover:opacity-100`}
+                        onClick={togglePlay}
+                    >
+                        {isPlaying ? (
+                            <Pause className="w-12 h-12 text-white" />
+                        ) : (
+                            <Play className="w-12 h-12 text-white" />
+                        )}
+                    </button>
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
+
+
+
 
 const InjuryDetails = () => {
     const { id } = useParams()

@@ -199,5 +199,24 @@
     "preventive": "Preventive Measures",
     "healing": "Healing Process",
     "treatment": "Treatment Preparation",
-    "recovery": "Recovery Guidelines"
+    "recovery": "Recovery Guidelines",
+    "injury_title": "Injury Title",
+    "healing_video": "Healing process video",
+    "import_video": "Import video",
+    "video_url": "Video URL",
+    "recovery_video": "Recovery video",
+    "placeholders": {
+        "injury_title": "Enter injury title",
+        "description": "Enter description",
+        "preventive": "Provide preventive measures",
+        "healing": "Provide healing process",
+        "treatment": "Provide treatment preparation",
+        "recovery": "Provide recovery guidelines",
+        "recovery_url": "Enter video URL",
+        "recovery_file": "Upload video file",
+        "healing_url": "Enter video URL",
+        "healing_file": "Upload video file",
+        "upload_healing_process": "Upload healing process video",
+        "upload_recovery_video": "Upload recovery video"
+    }
 }

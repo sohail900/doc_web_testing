@@ -199,5 +199,24 @@
     "preventive": "إجراءات وقائية",
     "healing": "عملية الشفاء",
     "treatment": "تحضير العلاج",
-    "recovery": "إرشادات التعافي"
+    "recovery": "إرشادات التعافي",
+    "injury_title": "عنوان الإصابة",
+    "healing_video": "فيديو عملية الشفاء",
+    "import_video": "استيراد الفيديو",
+    "video_url": "رابط الفيديو",
+    "recovery_video": "فيديو التعافي",
+    "placeholders": {
+        "injury_title": "أدخل عنوان الإصابة",
+        "description": "أدخل الوصف",
+        "preventive": "قدم تدابير وقائية",
+        "healing": "قدم عملية الشفاء",
+        "treatment": "قدم تحضير العلاج",
+        "recovery": "قدم إرشادات التعافي",
+        "recovery_url": "أدخل رابط الفيديو",
+        "recovery_file": "قم بتحميل ملف الفيديو",
+        "healing_url": "أدخل رابط الفيديو",
+        "healing_file": "قم بتحميل ملف الفيديو",
+        "upload_healing_process": "قم بتحميل ملف الفيديو للعملية الشفاء",
+        "upload_recovery_video": "قم بتحميل ملف الفيديو للتعافي"
+    }
 }

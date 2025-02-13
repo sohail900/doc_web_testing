@@ -51,7 +51,7 @@ const Cases = ({ user }) => {
     }
     return (
         <>
-            <section className='mt-10 mb-2 md:px-4 max-md:px-6' id='case'>
+            <section className='mt-20 mb-2 md:px-4 max-md:px-6' id='case'>
                 <h1 className='w-fit text-lg py-2 px-6 rounded-full bg-primary text-white mx-auto mb-3'>
                     {t('cases.show_btn')}
                 </h1>
@@ -124,7 +124,7 @@ const Cases = ({ user }) => {
                                         </div>
                                     )}
                                     {/* Image Section */}
-                                    <div className='h-1/2'>
+                                    <div className='h-48'>
                                         <img
                                             src={caseItem.imageUrl}
                                             alt={'case image'}

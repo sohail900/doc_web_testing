@@ -96,11 +96,14 @@ const Navbar = ({ user }) => {
                         </a>
                     </li>
                 ))}
+
+            </ul>
+            <ul className="flex items-center gap-2 lg:gap-6 text-black text-base">
                 {user && (
                     <li className="max-lg:hidden">
                         <button
                             onClick={logoutHandler}
-                            className='py-2 px-6 rounded-full bg-primary text-white transition-all duration-200 ease-linear hover:opacity-70 active:scale-95 -mr-5'
+                            className='py-2 px-6 rounded-full bg-primary text-white transition-all duration-200 ease-linear hover:opacity-70 active:scale-95'
                         >
                             {t('navbar.logout')}
                         </button>
