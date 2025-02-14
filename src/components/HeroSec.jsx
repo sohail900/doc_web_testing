@@ -13,15 +13,15 @@ const HeroSec = ({ heroAboutData }) => {
             <h1 className='text-5xl md:text-7xl font-medium mb-2'>
                 {heroAboutData.name}
             </h1>
-            <h2 className='text-base font-medium text-black/80 mb-5'>
+            <h2 className='text-base font-medium text-black/80 mb-5 rtl:text-2xl '>
                 {heroAboutData.degree}
             </h2>
 
-            <p className='text-base text-black/80  font-medium md:w-[50%] leading-relaxed'>
+            <p className='text-base text-black/80  font-medium md:w-[50%] leading-relaxed rtl:text-xl rtl:text-black/60 '>
                 {heroAboutData.heroDesc}
             </p>
             {language === "en" && (
-                <ol className="leading-relaxed text-black/70 list-decimal pl-4 mt-2">
+                <ol className="leading-relaxed text-black/90 list-decimal pl-4 mt-2">
                     <li>
                         <p>Hip and Knee Arthroplasty</p>
                     </li>

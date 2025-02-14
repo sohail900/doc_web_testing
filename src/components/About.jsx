@@ -85,12 +85,11 @@ const About = ({ heroAboutData }) => {
                         {heroAboutData.name}
                     </h2>
                     <p className='text-gray-500 mt-1'>{heroAboutData.degree}</p>
-                </div>      <p className='text-gray-600 leading-relaxed text-ellipsis line-clamp-6'>
-                    {heroAboutData.aboutDesc}
-                </p>
+                </div>
                 <span>
+                    <p className="text-gray-600 mt-2">{t("worksIn")}:</p>
                     <ol
-                        className={`text-gray-600 leading-relaxed text-ellipsis line-clamp-6 ltr:pl-5 rtl:pr-5 list-disc mt-2`}
+                        className={`text-gray-600 leading-relaxed text-ellipsis line-clamp-6 ltr:pl-5 rtl:pr-5 list-disc`}
                     >
                         <li>
                             <p>{t("experience.experience1.title")}</p>
@@ -100,6 +99,10 @@ const About = ({ heroAboutData }) => {
                         </li>
                     </ol>
                 </span>
+
+                <p className='text-gray-600 leading-relaxed text-ellipsis line-clamp-6'>
+                    {heroAboutData.aboutDesc}
+                </p>
 
 
                 <div className='flex gap-6 mt-8 max-sm:flex-wrap'>

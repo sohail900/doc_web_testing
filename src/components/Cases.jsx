@@ -133,7 +133,7 @@ const Cases = ({ user }) => {
                                         />
                                     </div>
                                     {/* Content Section */}
-                                    <div className='h-1/2 flex flex-col justify-center px-6 py-2'>
+                                    <div className='min-h-[250px] max-h-[450px] px-6 pt-3 pb-2'>
                                         <h3 className='text-xl font-semibold text-blue-600'>
                                             {caseItem.caseTitle}
                                         </h3>
