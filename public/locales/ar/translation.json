@@ -5,6 +5,9 @@
     "makeAppointment": "حدد موعد",
     "language": "إنجليزي",
     "worksIn": "يعمل في",
+    "attachment": "المرفق",
+    "open": "فتح",
+    "download_attachment": "تحميل المرفق",
     "explore_more": "استكشاف المزيد",
     "navbar": {
         "logo": "محفظة",

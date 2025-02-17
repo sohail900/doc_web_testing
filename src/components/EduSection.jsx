@@ -9,7 +9,7 @@ import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
 import { db } from '../config/firebaseConfig'
 import { toast } from 'react-toastify'
 import AddInjury from './ui/AddInjury'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const EduSection = ({ user }) => {
     const {

@@ -66,9 +66,8 @@ const Home = () => {
             <BackdropLayout />
             <main
                 dir={dir()}
-                className={`z-50 max-w-[1800px] mx-auto ${
-                    language === 'ar' && 'font-sans'
-                }`}
+                className={`z-50 max-w-[1800px] mx-auto ${language === 'ar' && 'font-sans'
+                    }`}
             >
                 <Navbar user={user} />
                 <HeroSec heroAboutData={heroAboutData} />
@@ -88,7 +87,7 @@ const Home = () => {
                 <Result user={user} />
                 <VideoPlayer user={user} />
                 <Reviews user={user} />
-                <Banner heroAboutData={heroAboutData} />
+                {/* <Banner heroAboutData={heroAboutData} /> */}
                 <Footer />
             </main>
         </>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { Camera, CircleX, Info, LinkIcon, Loader, Video } from 'lucide-react'
+import { Camera, CircleX, FileText, Info, LinkIcon, Loader, Video } from 'lucide-react'
 import InputField from './InputField'
 import Button from './Button'
 import { useTranslation } from 'react-i18next'
@@ -30,6 +30,7 @@ const AddInjury = ({
     const [healingVideoType, setHealingVideoType] = useState('file') // 'file' or 'url'
     const [recoveryVideoType, setRecoveryVideoType] = useState('file') // 'file' or 'url'
     const [loading, setLoading] = useState(false)
+    const [pdfFile, setPdfFile] = useState(null)
     const [formData, setFormData] = useState({
         injuryTitle: '',
         description: '',
@@ -40,11 +41,21 @@ const AddInjury = ({
         videoUrls: {
             healingProcess: '',
             recovery: ''
-        }
+        }, pdfUrl: ''
     })
     const updateAboutRef = useRef(null)
     const { t } = useTranslation()
 
+    const handlePdfChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            if (file.type !== 'application/pdf') {
+                toast.error('Please upload only PDF files')
+                return
+            }
+            setPdfFile(file)
+        }
+    }
 
 
     const handleVideoChange = (e, type) => {
@@ -129,7 +140,10 @@ const AddInjury = ({
             } else if (recoveryVideoType === 'url' && recoveryVideoUrl) {
                 finalRecoveryVideoUrl = recoveryVideoUrl
             }
-
+            let pdfUrl = ''
+            if (pdfFile) {
+                pdfUrl = await uploadFile(pdfFile, 'cases/pdfs')
+            }
             const finalData = {
                 ...formData,
                 imageUrl,
@@ -137,6 +151,7 @@ const AddInjury = ({
                     healingProcess: finalHealingVideoUrl,
                     recovery: finalRecoveryVideoUrl
                 },
+                pdfUrl,
                 createdAt: serverTimestamp(),
             }
 
@@ -157,7 +172,7 @@ const AddInjury = ({
                 videoUrls: {
                     healingProcess: '',
                     recovery: ''
-                }
+                }, pdfUrl: ""
             })
             setImagePreview(null)
             setImageFile(null)
@@ -380,7 +395,7 @@ const AddInjury = ({
                         <label className="flex items-center gap-2 w-full p-3 rounded-lg border-2 border-dashed border-primary cursor-pointer">
                             <Video className="w-6 h-6 text-gray-400" />
                             <span className="text-gray-500">
-                                {recoveryVideoFile ? recoveryVideoFile.name : t("placeholders.upload_recovery_video")}}
+                                {recoveryVideoFile ? recoveryVideoFile.name : t("placeholders.upload_recovery_video")}
                             </span>
                             <input
                                 type="file"
@@ -400,7 +415,22 @@ const AddInjury = ({
                         />
                     )}
                 </div>
-
+                {/* Add PDF upload section before the submit button */}
+                <div className="space-y-2 py-2">
+                    <h3 className="text-primary/80 font-medium">{t("attachment")} (PDF)</h3>
+                    <label className="flex items-center gap-2 w-full p-3 rounded-lg border-2 border-dashed border-primary cursor-pointer">
+                        <FileText className="w-6 h-6 text-gray-400" />
+                        <span className="text-gray-500">
+                            {pdfFile ? pdfFile.name : t("placeholders.upload_pdf")}
+                        </span>
+                        <input
+                            type="file"
+                            className="hidden"
+                            accept=".pdf"
+                            onChange={handlePdfChange}
+                        />
+                    </label>
+                </div>
                 <Button
                     type="submit"
                     disabled={loading || !imageFile || !formData.injuryTitle || !formData.description}

@@ -5,6 +5,9 @@
     "makeAppointment": "Make an Appointment",
     "language": "Arabic",
     "worksIn": "Works In",
+    "attachment": "Attachment",
+    "open": "Open",
+    "download_attachment": "Download Attachment",
     "explore_more": "Explore more",
     "navbar": {
         "logo": "Portfolio",

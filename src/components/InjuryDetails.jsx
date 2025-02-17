@@ -6,7 +6,7 @@ import Loading from '../pages/Loading'
 import { useTranslation } from 'react-i18next'
 import Navbar from './Navbar'
 import { db } from '../config/firebaseConfig'
-import { ArrowLeft, Play, Pause, Loader } from 'lucide-react'
+import { ArrowLeft, Play, Pause, Loader, FileText, Download, ExternalLink } from 'lucide-react'
 
 
 const VideoPlayer = ({ url }) => {
@@ -80,7 +80,18 @@ const InjuryDetails = () => {
     } = useTranslation()
     const [injury, setInjury] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [downloading, setDownloading] = useState(false)
 
+    const handleDownloadPDF = async (url) => {
+        try {
+            setDownloading(true)
+            window.open(url, '_blank')
+        } catch (error) {
+            console.error('Error downloading PDF:', error)
+        } finally {
+            setDownloading(false)
+        }
+    }
     useEffect(() => {
         const fetchInjuryDetails = async () => {
             try {
@@ -181,6 +192,38 @@ const InjuryDetails = () => {
                             />
                         )}
                     </div>
+                    {injury.pdfUrl && (
+                        <div className="mt-8 border-t pt-4">
+                            <h2 className="text-xl font-semibold text-primary mb-4">
+                                {t("download_attachment")}
+                            </h2>
+                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <div className="flex items-center space-x-3">
+                                    <FileText className="w-6 h-6 text-primary" />
+                                    <span className="text-gray-700 font-medium">
+                                        {injury.injuryTitle} - PDF Document
+                                    </span>
+                                </div>
+                                <button
+                                    onClick={() => handleDownloadPDF(injury.pdfUrl)}
+                                    disabled={downloading}
+                                    className="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:bg-gray-400"
+                                >
+                                    {downloading ? (
+                                        <>
+                                            <Loader className="w-4 h-4 animate-spin" />
+                                            <span>{t("downloading")}</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <ExternalLink className="w-4 h-4" />
+                                            <span>{t("open")}</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </>
