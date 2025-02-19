@@ -14,7 +14,7 @@ const About = ({ heroAboutData }) => {
                     {/* White background rectangle */}
 
                     {/* Doctor image */}
-                    <div className='bg-white rounded-3xl w-[200px] h-[300px] sm:w-[400px] sm:h-[500px] shadow-lg relative overflow-hidden'>
+                    <div className='bg-white rounded-3xl w-full h-[350px] sm:w-[400px] sm:h-[500px] shadow-lg relative overflow-hidden'>
                         <img
                             src={
                                 heroAboutData.imageUrl ??

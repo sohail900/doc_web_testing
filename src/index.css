@@ -5,3 +5,6 @@
     font-family: 'Exo', serif;
     scroll-behavior: smooth;
 }
+.swiper-slide {
+    box-shadow: none !important;
+}

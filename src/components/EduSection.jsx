@@ -114,7 +114,7 @@ const EduSection = ({ user }) => {
                         className=' mt-8'
                     >
                         {allInjuries.map((caseItem) => (
-                            <SwiperSlide key={caseItem.key}>
+                            <SwiperSlide key={caseItem.key} className='py-2 '>
                                 <div className='relative flex flex-col bg-white rounded-xl shadow-lg sm:h-[350px] overflow-hidden'>
                                     {user && (
                                         <div className='absolute right-5 top-3 size-10 rounded-xl bg-white grid place-items-center'>

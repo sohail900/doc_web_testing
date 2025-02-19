@@ -114,7 +114,7 @@ const Reviews = ({ user }) => {
                                         />
                                     </div>
                                     {user && (
-                                        <div className='absolute top-0 -right-0 size-10 rounded-xl bg-white grid place-items-center'>
+                                        <div className='absolute -top-4 ltr:-right-3 rtl:-left-3 size-10 rounded-xl bg-white grid place-items-center'>
                                             <Trash2
                                                 className=' text-red-600 cursor-pointer'
                                                 onClick={() =>

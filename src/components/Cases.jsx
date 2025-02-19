@@ -93,6 +93,7 @@ const Cases = ({ user }) => {
                         spaceBetween={30}
                         slidesPerView={1}
                         dir='ltr'
+
                         breakpoints={{
                             1024: {
                                 slidesPerView: 3,
@@ -110,8 +111,8 @@ const Cases = ({ user }) => {
                         className=' mt-8'
                     >
                         {cases.map((caseItem) => (
-                            <SwiperSlide key={caseItem.key}>
-                                <div className='relative flex flex-col bg-white rounded-xl shadow-lg sm:h-[350px] overflow-hidden cursor-pointer'>
+                            <SwiperSlide key={caseItem.key} className="py-2">
+                                <div className='relative flex flex-col bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer'>
                                     {user && (
                                         <div className='absolute right-5 top-3 size-10 rounded-xl bg-white grid place-items-center'>
                                             <Trash2
@@ -133,11 +134,11 @@ const Cases = ({ user }) => {
                                         />
                                     </div>
                                     {/* Content Section */}
-                                    <div className='min-h-[250px] max-h-[450px] px-6 pt-3 pb-2'>
+                                    <div className="flex-grow px-2 sm:px-4 pt-3 pb-2 flex flex-col h-[180px] overflow-y-auto">
                                         <h3 className='text-xl font-semibold text-blue-600'>
                                             {caseItem.caseTitle}
                                         </h3>
-                                        <p className='text-gray-600 mt-2'>
+                                        <p className='text-gray-600 mt-2 flex-grow'>
                                             {caseItem.description}
                                         </p>
                                     </div>
